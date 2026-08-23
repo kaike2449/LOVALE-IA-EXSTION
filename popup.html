@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lovable AI Hub</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand"><span class="logo">✦</span><div><strong>Lovable AI Hub</strong><small>Prompt workspace</small></div></div>
+      <span class="status">● pronto</span>
+    </header>
+
+    <section class="hero">
+      <span class="eyebrow">WORKSPACE</span>
+      <h1>Crie. Melhore. Envie.</h1>
+      <p>Prepare seu prompt, adicione arquivos e abra o chat escolhido.</p>
+    </section>
+
+    <section class="panel">
+      <label for="provider">IA de destino</label>
+      <select id="provider">
+        <option value="lovable">Lovable</option>
+        <option value="chatgpt">ChatGPT</option>
+        <option value="claude">Claude</option>
+        <option value="gemini">Gemini</option>
+      </select>
+
+      <label for="prompt">Seu prompt</label>
+      <textarea id="prompt" placeholder="Descreva o que você quer criar..."></textarea>
+
+      <div class="toolbar">
+        <label class="file-btn" title="Adicionar arquivos"><input id="files" type="file" multiple>＋ Arquivos</label>
+        <button id="photoBtn" type="button">▧ Foto</button>
+        <button id="improve" type="button">✦ Melhorar</button>
+      </div>
+      <div id="fileList" class="file-list"></div>
+
+      <button id="send" class="send" type="button">Abrir chat e preparar envio <span>↗</span></button>
+      <p class="hint">A extensão não chama APIs de IA nem cria uma cobrança própria. O uso de créditos do serviço de destino continua sujeito às regras dele.</p>
+    </section>
+
+    <footer><button id="settings" class="ghost">⚙ Configurações</button><span>v1.0.0</span></footer>
+  </main>
+  <input id="photoInput" type="file" accept="image/*" multiple hidden>
+  <script src="popup.js"></script>
+</body>
+</html>
