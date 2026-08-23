@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "Sessão Prêmio Gustavo",
-  "version": "2.1.0",
-  "description": "Workspace flutuante local para criar e preparar prompts para o Lovable sem chamadas externas de IA.",
+  "name": "Gustavo AI Workspace",
+  "version": "2.2.0",
+  "description": "Workspace flutuante para criar, melhorar e preparar prompts para projetos no Lovable.",
   "permissions": ["storage", "clipboardWrite", "activeTab", "tabs"],
   "action": {
-    "default_title": "Sessão Prêmio Gustavo",
+    "default_title": "Gustavo AI Workspace",
     "default_popup": "popup.html"
   },
   "content_scripts": [
