@@ -1,23 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "Gustavo AI Workspace",
+  "name": "Caike AI",
   "version": "2.2.0",
-  "description": "Workspace flutuante para criar, melhorar e preparar prompts para projetos no Lovable.",
+  "description": "Caike AI Workspace para criar, melhorar e preparar prompts para projetos no Lovable.",
   "permissions": ["storage", "clipboardWrite", "activeTab", "tabs"],
-  "action": {
-    "default_title": "Gustavo AI Workspace",
-    "default_popup": "popup.html"
-  },
-  "content_scripts": [
-    {
-      "matches": ["https://lovable.dev/*"],
-      "js": ["content.js"],
-      "run_at": "document_idle"
-    }
-  ],
-  "icons": {
-    "16": "icon.svg",
-    "48": "icon.svg",
-    "128": "icon.svg"
-  }
+  "action": {"default_title": "Caike AI", "default_popup": "popup.html"},
+  "content_scripts": [{"matches": ["https://lovable.dev/*"], "js": ["content.js"], "run_at": "document_idle"}],
+  "icons": {"16": "icon.svg", "48": "icon.svg", "128": "icon.svg"}
 }
