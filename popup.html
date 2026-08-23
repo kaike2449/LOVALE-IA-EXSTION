@@ -3,34 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Sessão Prêmio Gustavo</title>
+  <title>Caike AI</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <main class="app">
     <header class="topbar">
-      <div class="brand"><div class="heart">♥</div><div><strong>Sessão Prêmio Gustavo</strong><small>local AI workspace</small></div></div>
-      <span class="live"><i></i> LOCAL</span>
+      <div class="brand"><div class="heart">✦</div><div><strong>Caike AI</strong><small>AI Workspace • Lovable</small></div></div>
+      <span class="live"><i></i> ATIVO</span>
     </header>
-
     <section class="hero">
-      <span class="eyebrow">PRÊMIO GUSTAVO</span>
-      <h1>Seu prompt.<br><span>Sua sessão.</span></h1>
-      <p>Crie, melhore e prepare seu pedido para o Lovable sem chamar APIs externas.</p>
+      <span class="eyebrow">CAIKE AI WORKSPACE</span>
+      <h1>Crie. Melhore.<br><span>Construa.</span></h1>
+      <p>Seu espaço inteligente para preparar prompts e trabalhar nos seus projetos do Lovable.</p>
     </section>
-
     <section class="card">
-      <div class="row-label"><label>IA que escreve</label><span class="local-pill">⚡ sem API</span></div>
+      <div class="row-label"><label>Assistente</label><span class="local-pill">⚡ LOCAL</span></div>
       <div class="ai-grid" id="aiGrid">
-        <button class="ai active" data-ai="gustavo"><b>✦</b><span>Gustavo Local</span></button>
+        <button class="ai active" data-ai="gustavo"><b>✦</b><span>Caike Local</span></button>
         <button class="ai" data-ai="chatgpt"><b>◉</b><span>ChatGPT</span></button>
         <button class="ai" data-ai="claude"><b>◆</b><span>Claude</span></button>
         <button class="ai" data-ai="gemini"><b>✦</b><span>Gemini</span></button>
       </div>
-
       <div class="row-label prompt-label"><label>Seu pedido</label><span id="counter">0</span></div>
       <div class="editor">
-        <textarea id="prompt" placeholder="Ex.: crie uma página de login moderna com..." spellcheck="true"></textarea>
+        <textarea id="prompt" placeholder="Digite o que você quer criar no Lovable..." spellcheck="true"></textarea>
         <div class="editor-bottom">
           <button id="voice" class="icon-btn" title="Falar"><span>🎙</span></button>
           <div class="editor-actions">
@@ -39,23 +36,19 @@
           </div>
         </div>
       </div>
-
       <div id="fileList" class="file-list"></div>
-
       <div class="main-actions">
-        <button id="improve" class="improve"><span>✦</span> Melhorar com Gustavo <small>⌘</small></button>
+        <button id="improve" class="improve"><span>✦</span> Melhorar com Caike <small>⌘</small></button>
         <button id="send" class="send">Enviar ao Lovable <span>↗</span></button>
       </div>
       <div class="voice-status" id="voiceStatus"></div>
     </section>
-
     <section class="tools">
-      <button id="openFloat"><span>◈</span> Abrir flutuante</button>
+      <button id="openFloat"><span>◈</span> Flutuante</button>
       <button id="copy"><span>⧉</span> Copiar</button>
       <button id="clear"><span>⌫</span> Limpar</button>
     </section>
-
-    <footer><span>♥ feito para sua sessão</span><span>v2.1</span></footer>
+    <footer><span>✦ Caike AI</span><span>v2.2</span></footer>
   </main>
   <input id="photoInput" type="file" accept="image/*" multiple hidden>
   <script src="popup.js"></script>
