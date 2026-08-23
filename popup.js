@@ -1,30 +1,17 @@
 const $=id=>document.getElementById(id);
-const writer=$('writer'),prompt=$('prompt'),files=$('files'),photoInput=$('photoInput'),fileList=$('fileList');
-let attachments=[];
-const writerUrls={chatgpt:'https://chatgpt.com/',claude:'https://claude.ai/',gemini:'https://gemini.google.com/'};
-function renderFiles(){fileList.innerHTML=attachments.map(f=>`<div class="file-item">📎 ${f.name}</div>`).join('')}
+const prompt=$('prompt'),files=$('files'),photoInput=$('photoInput'),fileList=$('fileList'),counter=$('counter');
+let attachments=[],selectedAI='gustavo',recognition=null,listening=false;
+function renderFiles(){fileList.innerHTML=attachments.map((f,i)=>`<div class="file-item">📎 ${escapeHtml(f.name)} <span data-remove="${i}" style="float:right;cursor:pointer">×</span></div>`).join('');fileList.querySelectorAll('[data-remove]').forEach(x=>x.onclick=()=>{attachments.splice(+x.dataset.remove,1);renderFiles()})}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function addFiles(list){attachments=[...attachments,...Array.from(list)];renderFiles()}
-files.addEventListener('change',e=>addFiles(e.target.files));
-$('photoBtn').onclick=()=>photoInput.click();
-photoInput.onchange=e=>addFiles(e.target.files);
-$('improve').onclick=()=>{
- const text=prompt.value.trim(); if(!text){prompt.focus();return}
- prompt.value=`Transforme o pedido abaixo em um prompt profissional para o Lovable. Organize objetivo, funcionalidades, UI/UX, comportamento, regras técnicas e critérios de conclusão. Preserve a intenção original e não invente integrações privadas.\n\nPEDIDO ORIGINAL:\n${text}`;
-};
-let recognition;
-const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
-if(SpeechRecognition){recognition=new SpeechRecognition();recognition.lang='pt-BR';recognition.interimResults=false;recognition.continuous=false;recognition.onresult=e=>{prompt.value+=(prompt.value?' ':'')+e.results[0][0].transcript};recognition.onend=()=>{ $('voice').textContent='🎙 Voz'; $('voiceStatus').textContent=''};}
-$('voice').onclick=()=>{if(!recognition){$('voiceStatus').textContent='Reconhecimento de voz não é suportado neste navegador.';return} $('voice').textContent='⏹ Ouvindo…';$('voiceStatus').textContent='Fale seu prompt…';recognition.start()};
-$('send').onclick=async()=>{
- const text=prompt.value.trim(); if(!text){prompt.focus();return}
- const names=attachments.map(f=>f.name).join(', ');
- const prepared=names?`${text}\n\nArquivos selecionados: ${names}\nObservação: os arquivos precisam ser anexados no chat do Lovable.`:text;
- await chrome.storage.local.set({pendingLovablePrompt:prepared,lastPrompt:prepared,writer:writer.value});
- try{await navigator.clipboard.writeText(prepared)}catch{}
- const tab=await chrome.tabs.create({url:'https://lovable.dev/'});
- chrome.storage.local.set({pendingTabId:tab.id});
-};
-$('float').onclick=async()=>{await chrome.storage.local.set({openFloating:true});const tabs=await chrome.tabs.query({active:true,currentWindow:true});if(tabs[0]?.url?.startsWith('https://lovable.dev/')){chrome.tabs.sendMessage(tabs[0].id,{type:'OPEN_FLOATING'}).catch(()=>{})}else chrome.tabs.create({url:'https://lovable.dev/'})};
-$('minimize').onclick=()=>window.close();
-$('exit').onclick=()=>window.close();
-chrome.storage.local.get(['lastPrompt','writer'],d=>{if(d.writer)writer.value=d.writer;if(d.lastPrompt&&!prompt.value)prompt.value=d.lastPrompt});
+function updateCount(){counter.textContent=prompt.value.length}
+prompt.addEventListener('input',updateCount);files.addEventListener('change',e=>addFiles(e.target.files));$('photoBtn').onclick=()=>photoInput.click();photoInput.onchange=e=>addFiles(e.target.files);
+$('aiGrid').addEventListener('click',e=>{const b=e.target.closest('.ai');if(!b)return;selectedAI=b.dataset.ai;document.querySelectorAll('.ai').forEach(x=>x.classList.toggle('active',x===b));chrome.storage.local.set({selectedAI})});
+function improveLocal(text){const clean=text.trim().replace(/\s+/g,' ');if(!clean)return '';return `OBJETIVO\n${clean}\n\nREQUISITOS\n- Transforme o objetivo acima em uma implementação funcional e completa.\n- Preserve exatamente a intenção principal do pedido.\n- Organize a solução em funcionalidades, UI/UX, comportamento e critérios de conclusão.\n- Use uma interface moderna, responsiva e acessível.\n- Considere estados de carregamento, erro, vazio e sucesso quando fizer sentido.\n- Não remova funcionalidades já solicitadas.\n\nENTREGA\n- Código pronto para produção.\n- Componentes organizados e reutilizáveis.\n- Verifique a experiência em desktop e mobile.\n- Ao finalizar, confirme o que foi implementado.`}
+$('improve').onclick=()=>{const text=prompt.value.trim();if(!text){prompt.focus();return}prompt.value=improveLocal(text);updateCount();$('voiceStatus').textContent='✦ Prompt melhorado pelo Gustavo Local';setTimeout(()=>$('voiceStatus').textContent='',2200)};
+$('copy').onclick=async()=>{if(!prompt.value.trim())return;try{await navigator.clipboard.writeText(prompt.value);$('voiceStatus').textContent='✓ Copiado';setTimeout(()=>$('voiceStatus').textContent='',1500)}catch{}};
+$('clear').onclick=()=>{prompt.value='';attachments=[];renderFiles();updateCount();prompt.focus()};
+function setupVoice(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){$('voiceStatus').textContent='Seu navegador não oferece reconhecimento de voz nesta extensão.';return}recognition=new SR();recognition.lang='pt-BR';recognition.continuous=false;recognition.interimResults=true;recognition.onstart=()=>{listening=true;$('voice').classList.add('recording');$('voice').innerHTML='<span>⏹</span>';$('voiceStatus').textContent='● ouvindo...'};recognition.onresult=e=>{let finalText='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)finalText+=e.results[i][0].transcript}if(finalText){prompt.value+=(prompt.value.trim()?' ':'')+finalText;updateCount()}};recognition.onerror=e=>{$('voiceStatus').textContent=e.error==='not-allowed'?'Permita o microfone no navegador.':'Não consegui ouvir. Tente novamente.'};recognition.onend=()=>{listening=false;$('voice').classList.remove('recording');$('voice').innerHTML='<span>🎙</span>';setTimeout(()=>$('voiceStatus').textContent='',1800)}}setupVoice();$('voice').onclick=()=>{if(!recognition)return;if(listening)recognition.stop();else{try{recognition.start()}catch{}}};
+$('send').onclick=async()=>{const text=prompt.value.trim();if(!text){prompt.focus();return}const names=attachments.map(f=>f.name).join(', ');const prepared=names?`${text}\n\nARQUIVOS PARA ANEXAR\n${names}\n\nObservação: os arquivos ficam selecionados na extensão; anexe-os no chat do Lovable quando necessário.`:text;try{await navigator.clipboard.writeText(prepared)}catch{}await chrome.storage.local.set({pendingLovablePrompt:prepared,lastPrompt:prepared,selectedAI});const tabs=await chrome.tabs.query({active:true,currentWindow:true});if(tabs[0]?.url?.includes('lovable.dev'))chrome.tabs.sendMessage(tabs[0].id,{type:'SET_PROMPT',text:prepared}).catch(()=>{});else chrome.tabs.create({url:'https://lovable.dev/'})};
+$('openFloat').onclick=async()=>{const tabs=await chrome.tabs.query({active:true,currentWindow:true});if(tabs[0]?.url?.includes('lovable.dev'))chrome.tabs.sendMessage(tabs[0].id,{type:'OPEN_FLOAT'}).catch(()=>{});else chrome.tabs.create({url:'https://lovable.dev/'})};
+chrome.storage.local.get(['lastPrompt','selectedAI'],d=>{if(d.selectedAI){selectedAI=d.selectedAI;document.querySelectorAll('.ai').forEach(x=>x.classList.toggle('active',x.dataset.ai===selectedAI))}if(d.lastPrompt&&!prompt.value)prompt.value=d.lastPrompt;updateCount()});
