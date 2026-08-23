@@ -1,56 +1,19 @@
 <!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Caike AI</title>
-  <link rel="stylesheet" href="popup.css">
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Caike AI</title><link rel="stylesheet" href="popup.css"></head>
 <body>
-  <main class="app">
-    <header class="topbar">
-      <div class="brand"><div class="heart">✦</div><div><strong>Caike AI</strong><small>AI Workspace • Lovable</small></div></div>
-      <span class="live"><i></i> ATIVO</span>
-    </header>
-    <section class="hero">
-      <span class="eyebrow">CAIKE AI WORKSPACE</span>
-      <h1>Crie. Melhore.<br><span>Construa.</span></h1>
-      <p>Seu espaço inteligente para preparar prompts e trabalhar nos seus projetos do Lovable.</p>
-    </section>
-    <section class="card">
-      <div class="row-label"><label>Assistente</label><span class="local-pill">⚡ LOCAL</span></div>
-      <div class="ai-grid" id="aiGrid">
-        <button class="ai active" data-ai="gustavo"><b>✦</b><span>Caike Local</span></button>
-        <button class="ai" data-ai="chatgpt"><b>◉</b><span>ChatGPT</span></button>
-        <button class="ai" data-ai="claude"><b>◆</b><span>Claude</span></button>
-        <button class="ai" data-ai="gemini"><b>✦</b><span>Gemini</span></button>
-      </div>
-      <div class="row-label prompt-label"><label>Seu pedido</label><span id="counter">0</span></div>
-      <div class="editor">
-        <textarea id="prompt" placeholder="Digite o que você quer criar no Lovable..." spellcheck="true"></textarea>
-        <div class="editor-bottom">
-          <button id="voice" class="icon-btn" title="Falar"><span>🎙</span></button>
-          <div class="editor-actions">
-            <button id="photoBtn" class="mini" title="Adicionar foto">▧</button>
-            <label class="mini file-label" title="Adicionar arquivos">⌕<input id="files" type="file" multiple></label>
-          </div>
-        </div>
-      </div>
-      <div id="fileList" class="file-list"></div>
-      <div class="main-actions">
-        <button id="improve" class="improve"><span>✦</span> Melhorar com Caike <small>⌘</small></button>
-        <button id="send" class="send">Enviar ao Lovable <span>↗</span></button>
-      </div>
-      <div class="voice-status" id="voiceStatus"></div>
-    </section>
-    <section class="tools">
-      <button id="openFloat"><span>◈</span> Flutuante</button>
-      <button id="copy"><span>⧉</span> Copiar</button>
-      <button id="clear"><span>⌫</span> Limpar</button>
-    </section>
-    <footer><span>✦ Caike AI</span><span>v2.2</span></footer>
-  </main>
-  <input id="photoInput" type="file" accept="image/*" multiple hidden>
-  <script src="popup.js"></script>
-</body>
-</html>
+<main class="app">
+<header class="topbar"><div class="brand"><div class="heart">✦</div><div><strong>Caike AI</strong><small>Workspace inteligente • Lovable</small></div></div><span class="live"><i></i> ONLINE</span></header>
+<section class="hero"><span class="eyebrow">CAIKE AI • STUDIO</span><h1>Crie mais.<br><span>Construa melhor.</span></h1><p>Um workspace premium para preparar, melhorar e enviar seus prompts ao projeto ativo.</p></section>
+<section class="project"><div class="project-dot"></div><div><small>PROJETO ATIVO</small><strong id="projectName">Detectando projeto…</strong></div><span>●</span></section>
+<section class="card">
+<div class="row-label"><label>IA que escreve seu prompt</label><span class="local-pill">⚡ LOCAL</span></div>
+<div class="ai-grid" id="aiGrid"><button class="ai active" data-ai="gustavo"><b>✦</b><span>Caike Local</span></button><button class="ai" data-ai="chatgpt"><b>◉</b><span>ChatGPT</span></button><button class="ai" data-ai="claude"><b>◆</b><span>Claude</span></button><button class="ai" data-ai="gemini"><b>✦</b><span>Gemini</span></button></div>
+<div class="row-label prompt-label"><label>Seu prompt</label><span id="counter">0</span></div>
+<div class="editor"><textarea id="prompt" placeholder="Descreva o que você quer construir…" spellcheck="true"></textarea><div class="editor-bottom"><button id="voice" class="icon-btn" title="Falar"><span>🎙</span><em>Voz</em></button><div class="editor-actions"><button id="photoBtn" class="mini" title="Adicionar foto">▧</button><label class="mini file-label" title="Adicionar arquivos">⌕<input id="files" type="file" multiple></label></div></div></div>
+<div id="fileList" class="file-list"></div>
+<div class="main-actions"><button id="improve" class="improve"><span>✦</span> Melhorar com Caike</button><button id="send" class="send">Colocar no Lovable <span>↗</span></button></div><div class="voice-status" id="voiceStatus"></div>
+</section>
+<section class="tools"><button id="openFloat"><span>◈</span> Abrir flutuante</button><button id="copy"><span>⧉</span> Copiar</button><button id="clear"><span>⌫</span> Limpar</button></section>
+<footer><span>✦ Caike AI</span><span>v2.2 • local</span></footer>
+</main><input id="photoInput" type="file" accept="image/*" multiple hidden><script src="popup.js"></script></body></html>
