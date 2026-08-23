@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "Lovable AI Hub",
-  "version": "1.0.0",
-  "description": "Painel de produtividade para preparar prompts, anexos e abrir conversas no Lovable ou em outras IAs.",
-  "permissions": ["storage", "clipboardWrite", "activeTab"],
+  "name": "Sessão Prêmio Gustavo",
+  "version": "2.0.0",
+  "description": "Workspace flutuante para preparar prompts e enviá-los ao chat do Lovable sem usar APIs próprias.",
+  "permissions": ["storage", "clipboardWrite", "activeTab", "tabs"],
   "action": {
-    "default_title": "Lovable AI Hub",
+    "default_title": "Sessão Prêmio Gustavo",
     "default_popup": "popup.html"
   },
   "content_scripts": [
