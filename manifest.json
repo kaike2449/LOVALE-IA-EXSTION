@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Lovable AI Hub",
+  "version": "1.0.0",
+  "description": "Painel de produtividade para preparar prompts, anexos e abrir conversas no Lovable ou em outras IAs.",
+  "permissions": ["storage", "clipboardWrite", "activeTab"],
+  "action": {
+    "default_title": "Lovable AI Hub",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://lovable.dev/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icon.svg",
+    "48": "icon.svg",
+    "128": "icon.svg"
+  }
+}
