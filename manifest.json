@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Sessão Prêmio Gustavo",
-  "version": "2.0.0",
-  "description": "Workspace flutuante para preparar prompts e enviá-los ao chat do Lovable sem usar APIs próprias.",
+  "version": "2.1.0",
+  "description": "Workspace flutuante local para criar e preparar prompts para o Lovable sem chamadas externas de IA.",
   "permissions": ["storage", "clipboardWrite", "activeTab", "tabs"],
   "action": {
     "default_title": "Sessão Prêmio Gustavo",
